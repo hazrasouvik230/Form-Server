@@ -45,8 +45,9 @@ dotenv.config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const userRouter = require("./router/User.route");
 const cors = require("cors");
+const userRouter = require("./router/User.route");
+const folderRouter = require("./router/Folder.route");
 
 const corsOptions = {
     origin: "*",
@@ -56,7 +57,6 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
-
 app.use(express.json());
 
 const PORT = process.env.PORT || 4000;
@@ -66,6 +66,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", userRouter);
+app.use("/api/folders", folderRouter);
 
 mongoose.connect(process.env.MONGO_URL)
 .then(() => {
